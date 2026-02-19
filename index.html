@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Cases</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #fafafc;
+        --text: #111827;
+        --muted: #6b7280;
+        --line: rgba(17, 24, 39, 0.1);
+        --accent: #d81b60;
+        --accent-soft: #fce4ec;
+        --max: 1180px;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      body {
+        font-family: "Avenir Next", "Noto Sans JP", "Hiragino Sans", sans-serif;
+        letter-spacing: 0.01em;
+      }
+
+      .scanline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        z-index: 60;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent) var(--progress, 0%), transparent var(--progress, 0%));
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 84px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner {
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .header-inner nav {
+        display: flex;
+        gap: 18px;
+      }
+
+      .header-inner a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .header-inner a:hover { color: var(--text); }
+
+      main section { padding: 116px 0; }
+
+      h1, h2, h3, p { margin: 0; }
+
+      .hero {
+        min-height: calc(100vh - 68px);
+        display: grid;
+        align-items: center;
+        padding: 90px 0 110px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 40px;
+        align-items: end;
+      }
+
+      h1 {
+        font-size: clamp(38px, 6.3vw, 78px);
+        line-height: 1.14;
+        font-weight: 550;
+        max-width: 10.8em;
+      }
+
+      .hero-copy {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.9;
+        max-width: 38em;
+      }
+
+      .concept-box {
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(250, 250, 252, 0.6);
+        padding: 24px;
+      }
+
+      .concept-box p {
+        font-size: 14px;
+        line-height: 1.9;
+        color: var(--muted);
+      }
+
+      .section-head {
+        margin-bottom: 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 24px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(26px, 4vw, 40px);
+        line-height: 1.2;
+      }
+
+      .section-head p {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .reading-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .reading-item {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+      }
+
+      .reading-item strong {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted);
+      }
+
+      .reading-item span {
+        margin-top: 6px;
+        display: block;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .filter {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--muted);
+        padding: 9px 14px;
+        font-size: 12px;
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        transition: 180ms ease;
+      }
+
+      .filter:hover,
+      .filter.active {
+        border-color: rgba(216, 27, 96, 0.3);
+        background: var(--accent-soft);
+        color: #8a1040;
+      }
+
+      .cases {
+        margin-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .case {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        gap: 22px;
+        padding: 32px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .case-meta {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .case h3 {
+        font-size: clamp(21px, 3vw, 28px);
+        line-height: 1.36;
+      }
+
+      .summary {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .case-grid {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .case-cell {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 13px;
+      }
+
+      .label {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .case-cell p {
+        margin-top: 7px;
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .diagram {
+        background: var(--bg-soft);
+      }
+
+      .diagram-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .diagram-card {
+        border-radius: 20px;
+        padding: 22px;
+        background: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+      }
+
+      .diagram-card h3 {
+        font-size: 18px;
+      }
+
+      .diagram-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .notes {
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .note {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      .note strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .note span {
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 52px 0 64px;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .footer-inner small {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 16px;
+      }
+
+      .footer-links a {
+        font-size: 13px;
+        text-decoration: none;
+        color: var(--muted);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 650ms ease, transform 650ms ease;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .container { width: min(var(--max), calc(100% - 40px)); }
+
+        main section { padding: 86px 0; }
+
+        .hero {
+          min-height: auto;
+          padding: 74px 0 82px;
+        }
+
+        .hero-grid,
+        .reading-grid,
+        .case,
+        .case-grid,
+        .diagram-grid,
+        .notes {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          flex-direction: column;
+          align-items: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scanline" aria-hidden="true"></div>
+
+    <header>
+      <div class="container header-inner">
+        <div class="brand">Product Development Cases</div>
+        <nav aria-label="section links">
+          <a href="#reading">Read</a>
+          <a href="#cases">Cases</a>
+          <a href="#notes">Notes</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero reveal" id="top">
+        <div class="container hero-grid">
+          <div>
+            <h1>つくったものを並べるのではなく、判断の一貫性を示す。</h1>
+            <p class="hero-copy">整理とブランド形成のための、プロダクト実績一覧。</p>
+          </div>
+          <aside class="concept-box">
+            <p>
+              実績を同一の記述構造で提示し、課題定義、設計判断、実装重心、結果を比較可能にする。
+              思考の整列そのものを、組織のブランドとして見せる。
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="reading" class="reveal">
+        <div class="container">
+          <div class="section-head">
+            <h2>Reading Frame</h2>
+            <p>How to compare</p>
+          </div>
+          <div class="reading-grid">
+            <article class="reading-item">
+              <strong>課題定義</strong>
+              <span>何を解くかを、利用文脈と制約で定義する。</span>
+            </article>
+            <article class="reading-item">
+              <strong>設計判断</strong>
+              <span>何を捨て、何を採用したかを明示する。</span>
+            </article>
+            <article class="reading-item">
+              <strong>結果</strong>
+              <span>変化を定量または定性で最小限に示す。</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="cases" class="reveal">
+        <div class="container">
+          <div class="section-head">
+            <h2>Cases</h2>
+            <p>Structured index</p>
+          </div>
+          <div class="filters" role="tablist" aria-label="case filters">
+            <button class="filter active" data-key="all">All</button>
+            <button class="filter" data-key="ai">AI</button>
+            <button class="filter" data-key="mobility">Mobility</button>
+            <button class="filter" data-key="productivity">Productivity</button>
+            <button class="filter" data-key="media">Media</button>
+          </div>
+
+          <div class="cases">
+            <article class="case" data-tags="ai">
+              <div class="case-meta">AI / 画像生成 / 2025</div>
+              <div>
+                <h3>マッチングアプリ用AI画像生成</h3>
+                <p class="summary">プロフィール写真の改善仮説を、生成体験として短時間で検証。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>自己表現の更新コストが高く、写真改善が後回しになる。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>入力を最小化し、生成意図をプリセット化して迷いを減らす。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>候補作成までの時間を短縮し、更新頻度を上げた。</p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case" data-tags="mobility">
+              <div class="case-meta">Mobility / 計算支援 / 2024</div>
+              <div>
+                <h3>タクシー割り勘計算アプリ</h3>
+                <p class="summary">支払い時の認知負荷を下げるため、入力順と表示順を最適化。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>人数・端数・支払い方式が混在し、計算が遅延する。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>状況別テンプレートを用意し、端数処理ルールを先に固定。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>会計完了までの操作回数を削減。</p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case" data-tags="mobility">
+              <div class="case-meta">Mobility / 提案 / 2024</div>
+              <div>
+                <h3>終電逃し帰宅手段提案アプリ</h3>
+                <p class="summary">緊急時の選択肢を、時間・コスト・安全性で比較提示。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>深夜帯では情報源が分散し、判断が遅れる。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>目的地までの代替手段を同一指標で一覧化。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>比較時間を短縮し、選択時の迷いを低減。</p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case" data-tags="productivity ai">
+              <div class="case-meta">Productivity / AI運用 / 2025</div>
+              <div>
+                <h3>プロンプト管理アプリ</h3>
+                <p class="summary">試行錯誤の履歴を構造化し、再利用可能な資産へ変換。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>プロンプトの改良履歴が散在し、再現性が低い。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>意図・変数・評価を単位化し、比較可能な記録形式に統一。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>再利用率が向上し、改善サイクルが短くなった。</p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case" data-tags="productivity">
+              <div class="case-meta">Productivity / 習慣形成 / 2023</div>
+              <div>
+                <h3>ポモドーロタイマー</h3>
+                <p class="summary">集中と休憩の切替えを、最小インタラクションで維持。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>タスク開始前の設定操作が継続利用を阻害する。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>起動直後に開始できる単一導線と、後編集型設定を採用。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>セッション開始率と連続利用日数が改善。</p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case" data-tags="ai productivity">
+              <div class="case-meta">AI / 会話支援 / 2025</div>
+              <div>
+                <h3>リアルタイム会話添削アラート</h3>
+                <p class="summary">会話中の言い回し改善を、割り込み最小の通知で支援。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>改善提案が会話体験を阻害しやすい。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>即時修正ではなく、文脈単位での軽量アラートに限定。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>会話継続率を維持しつつ、修正採用率が上昇。</p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="case" data-tags="media">
+              <div class="case-meta">Media / キュレーション / 2023</div>
+              <div>
+                <h3>テックブログキュレーションサイト</h3>
+                <p class="summary">情報量過多の中で、読むべき記事を文脈別に再構成。</p>
+                <div class="case-grid">
+                  <div class="case-cell"><span class="label">課題定義</span><p>更新頻度が高く、情報の取捨選択に時間がかかる。</p></div>
+                  <div class="case-cell"><span class="label">設計判断</span><p>テーマ軸と難易度軸で分類し、読む順序を設計。</p></div>
+                  <div class="case-cell"><span class="label">結果</span><p>記事到達率と継続閲覧時間が改善。</p></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="diagram reveal" id="diagram">
+        <div class="container">
+          <div class="section-head">
+            <h2>Diagram Highlights</h2>
+            <p>Thinking artifacts</p>
+          </div>
+          <div class="diagram-grid">
+            <article class="diagram-card">
+              <h3>情報設計マップ</h3>
+              <p>画面内要素の優先度を可視化し、表示順の判断根拠を明確化。</p>
+            </article>
+            <article class="diagram-card">
+              <h3>状態遷移図</h3>
+              <p>利用文脈ごとの分岐を整理し、実装時の例外漏れを抑制。</p>
+            </article>
+            <article class="diagram-card">
+              <h3>業務フロー図</h3>
+              <p>入力、判断、出力の連鎖を明文化し、改善余地を同定。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="notes" class="reveal">
+        <div class="container">
+          <div class="section-head">
+            <h2>Cross Notes</h2>
+            <p>Shared principles</p>
+          </div>
+          <div class="notes">
+            <article class="note">
+              <strong>記述構造を固定する</strong>
+              <span>案件ごとに語り方を変えず、比較可能性を優先する。</span>
+            </article>
+            <article class="note">
+              <strong>判断理由を1文で残す</strong>
+              <span>仕様ではなく選択理由を明記し、次案件へ接続する。</span>
+            </article>
+            <article class="note">
+              <strong>形容詞より差分で示す</strong>
+              <span>誇張を避け、変化の事実だけで品質を伝える。</span>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <small>Product Development Cases</small>
+        <div class="footer-links">
+          <a href="#top">Top</a>
+          <a href="#cases">Archive</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const root = document.documentElement;
+      const updateProgress = () => {
+        const full = document.body.scrollHeight - window.innerHeight;
+        const ratio = full > 0 ? (window.scrollY / full) * 100 : 0;
+        root.style.setProperty('--progress', `${ratio}%`);
+      };
+      updateProgress();
+      window.addEventListener('scroll', updateProgress, { passive: true });
+
+      const revealTargets = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('show');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      revealTargets.forEach((el) => observer.observe(el));
+
+      const filters = document.querySelectorAll('.filter');
+      const cases = document.querySelectorAll('.case');
+
+      filters.forEach((button) => {
+        button.addEventListener('click', () => {
+          filters.forEach((b) => b.classList.remove('active'));
+          button.classList.add('active');
+          const key = button.dataset.key;
+          cases.forEach((item) => {
+            const tags = item.dataset.tags || '';
+            const visible = key === 'all' || tags.includes(key);
+            item.style.display = visible ? 'grid' : 'none';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

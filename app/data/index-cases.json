@@ -1,0 +1,71 @@
+[
+  {
+    "id": "myhair-index",
+    "detailId": "myhair",
+    "tags": ["ai", "consumer", "beauty"],
+    "meta": "Consumer / Beauty / 2025",
+    "title": "MyHair",
+    "summary": "髪型の意思決定を、納得のプロセスとして支援する。",
+    "imageSrc": "/cases/myhair/hero.png",
+    "points": [
+      {
+        "label": "課題",
+        "text": "髪型変更の判断材料が不足する。"
+      },
+      {
+        "label": "判断",
+        "text": "生成より意思決定支援に重心を置く。"
+      },
+      {
+        "label": "結果",
+        "text": "次の行動に移るまでの迷いを減らす。"
+      }
+    ]
+  },
+  {
+    "id": "kizuki-index",
+    "detailId": "kizuki",
+    "tags": ["ai", "realtime", "communication"],
+    "meta": "AI / Conversation Quality / 2025",
+    "title": "Kizuki",
+    "summary": "会話の質が落ちる兆候をリアルタイムに検知する。",
+    "imageSrc": "/cases/kizuki/hero.png",
+    "points": [
+      {
+        "label": "課題",
+        "text": "会話中に改善点へ気づきにくい。"
+      },
+      {
+        "label": "判断",
+        "text": "割り込みを抑えた軽量アラートを採用。"
+      },
+      {
+        "label": "結果",
+        "text": "会話継続を妨げずに気づきを返す。"
+      }
+    ]
+  },
+  {
+    "id": "janso-index",
+    "detailId": "janso",
+    "tags": ["utility", "local", "decision-support"],
+    "meta": "Utility / Local / 2025",
+    "title": "Janso",
+    "summary": "入店前の不確実性を、待ち時間として可視化する。",
+    "imageSrc": "/cases/janso/hero.png",
+    "points": [
+      {
+        "label": "課題",
+        "text": "行く前に待ち時間が分からない。"
+      },
+      {
+        "label": "判断",
+        "text": "判断に必要な指標だけを表示する。"
+      },
+      {
+        "label": "結果",
+        "text": "移動判断までの時間を短縮する。"
+      }
+    ]
+  }
+]
