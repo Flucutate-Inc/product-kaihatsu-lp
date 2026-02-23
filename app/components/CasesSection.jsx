@@ -1,7 +1,26 @@
 import Link from "next/link";
-import indexCases from "../data/index-cases.json";
+import { getAllCaseSummaries } from "../lib/markdown";
 
 export default function CasesSection() {
+  const cases = getAllCaseSummaries()
+    .sort((a, b) => {
+      if (a.order != null && b.order != null) {
+        return a.order - b.order;
+      }
+      if (a.order != null) return -1;
+      if (b.order != null) return 1;
+      return a.title.localeCompare(b.title);
+    })
+    .map((item) => ({
+      id: item.id,
+      hrefId: item.id,
+      tags: item.tags || [],
+      meta: item.meta || "",
+      title: item.title,
+      summary: item.summary,
+      imageSrc: item.imageSrc,
+    }));
+
   return (
     <section id="cases" className="reveal">
       <div className="container">
@@ -11,13 +30,11 @@ export default function CasesSection() {
         </div>
 
         <div className="cases-grid">
-          {indexCases.map((item) => {
-            const hrefId = item.detailId || item.slug || item.id;
-
+          {cases.map((item) => {
             return (
               <Link
                 key={item.id}
-                href={`/cases/${hrefId}`}
+                href={`/cases/${item.hrefId}`}
                 className="card-link"
                 aria-label={`${item.title} の詳細を見る`}
               >
@@ -32,14 +49,6 @@ export default function CasesSection() {
                     <div className="case-meta">{item.meta}</div>
                     <h3>{item.title}</h3>
                     <p className="summary">{item.summary}</p>
-                    <div className="case-points">
-                      {(item.points || []).map((p) => (
-                        <div key={p.label} className="case-point">
-                          <span className="label">{p.label}</span>
-                          <p>{p.text}</p>
-                        </div>
-                      ))}
-                    </div>
                     <p className="case-link-text">詳細を見る</p>
                   </div>
                 </article>
